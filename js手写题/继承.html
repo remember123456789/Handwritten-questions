@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <script>
+        //原型链继承
+        // function Person(name) {
+        //     this.name = name
+        //     this.play = [1, 2, 3, 4]
+        // }
+        // Person.prototype.say = () => {
+        //     console.log('我是Person');
+        // }
+        // function Son(age) {
+        //     this.age = age
+        // }
+
+        // Son.prototype = new Person()
+
+        // let person = new Person('张三')
+        // let son = new Son()
+        // son.say()
+        // console.log(son.play);
+        //构造函数继承
+        // function Child1() {
+        //     this.name = 'zs'
+        // }
+
+        // Child1.prototype.say = () => {
+        //     console.log('child1');
+        // }
+        // function Child2() {
+        //     Child1.call(this)
+
+        // }
+
+        // let child2 = new Child2()
+        // console.log(child2.name);
+        //原型链继承
+        // let person = {
+        //     name: 'zs',
+        //     age: 20
+        // }
+        // function Person(name) {
+        //     this.name = name
+        // }
+        // var person = new Person('zs')
+        // let res = Object.getPrototypeOf(person)
+
+        // const me = Object.create(res)
+        // console.log(me)
+
+        //组合继承
+        // function Person() {
+        //     this.name = 'zs'
+        // }
+
+        // Person.prototype.say = () => {
+        //     console.log('say hi');
+        // }
+
+        // function Child() {
+        //     Person.call(this)
+        //     this.age = 20
+        // }
+
+        // Child.prototype = new Person()
+
+        // let child = new Child()
+        // child.say()
+        
+
+
+        //寄生组合式继承
+        // function Person() {
+        //     this.name = 'zs'
+        // }
+
+        // Person.prototype.say = () => {
+        //     console.log('say hi');
+        // }
+
+        // function Child() {
+        //     this.age = 20
+        // }
+
+        // Child.prototype.heigt = () => {
+        //     console.log('this Child');
+        // }
+
+
+        // Child.prototype = Object.create(Person.prototype)
+
+        // //修复子类的指向
+        // Child.prototype.constructor=Child
+
+        // let child = new Child()
+        // child.say()
+
+
+    </script>
+</body>
+
+</html>
