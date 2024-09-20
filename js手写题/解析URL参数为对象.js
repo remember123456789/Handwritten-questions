@@ -33,6 +33,5 @@ let paramsObj = {};
 params.forEach((item) => {
     let [key,val]=item.split('=')
     paramsObj[key]=val
-
 })
 console.log(paramsObj);

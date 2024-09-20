@@ -1,16 +1,17 @@
-
 // 给一个url 要求判断是否合法，用Boolean值返回
 // 协议仅为https
 
-function isUrl(url){
-    const regx=/^(http:\/\/)+[a-z]/
-
-    return regx.test(url)
+const _isUrl = url => {
+    return /^((http|https):\/\/)?(([A-Za-z0-9]+-[A-Za-z0-9]+|[A-Za-z0-9]+)\.)+([A-Za-z]+)(:\d+)?(\/.*)?(\?.*)?(#.*)?$/.test(url)
 }
 
-let result="http://example.com"
 
-console.log(isUrl(result));
+// 协议、端口号、路径、查询参数 +([A-Za-z]+)(:\d+)?(\/.*)?(\?.*)?(#.*)?
+// :80?a=2&b=x
+// 首先必须是以http(s)开头并且可以不包含协议头部信息
+// 主机名可以使用"-"符号，所以两种情况都要判断，包含"-"或不包含"-"
+// 顶级域名很多，直接判断"."之后是否为字母即可
+// 最后判断端口、路径和哈希，这些参数可有可无
+let result = "https://a.b.c.com:8080/get?name=?&age=1";
 
-
-
+console.log(_isUrl(result));
