@@ -31,7 +31,6 @@
         // }
         // function Child2() {
         //     Child1.call(this)
-
         // }
 
         // let child2 = new Child2()
@@ -68,34 +67,34 @@
 
         // let child = new Child()
         // child.say()
-        
+
 
 
         //寄生组合式继承
-        // function Person() {
-        //     this.name = 'zs'
-        // }
+        function Person() {
+            this.name = 'zs'
+        }
 
-        // Person.prototype.say = () => {
-        //     console.log('say hi');
-        // }
+        Person.prototype.say = () => {
+            console.log('say hi');
+        }
 
-        // function Child() {
-        //     this.age = 20
-        // }
+        function Child() {
+            this.age = 20
+        }
 
-        // Child.prototype.heigt = () => {
-        //     console.log('this Child');
-        // }
+        Child.prototype.heigt = () => {
+            console.log('this Child');
+        }
 
 
-        // Child.prototype = Object.create(Person.prototype)
+        Child.prototype = Object.create(Person.prototype)
 
-        // //修复子类的指向
-        // Child.prototype.constructor=Child
+        //修复子类的指向
+        Child.prototype.constructor = Child
 
-        // let child = new Child()
-        // child.say()
+        let child = new Child()
+        child.say()
 
 
     </script>
