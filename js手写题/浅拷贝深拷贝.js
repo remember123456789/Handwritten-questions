@@ -42,7 +42,17 @@ const _shallowClone = (target) => {
   return Object.assign({}, target);
 };
 
-// 深拷贝
+// 深拷贝方式1 JSON.parse(JSON.stringify());  这种方式会忽略undefined、symbol和函数
+const obj = {
+  name: "A",
+  name1: undefined,
+  name3: function () {},
+  name4: Symbol("A"),
+};
+const obj2 = JSON.parse(JSON.stringify(obj));
+console.log(obj2); // {name: "A"}
+
+// 深拷贝方式2
 const _completeDeepClone = (target, map = new Map()) => {
   if (target === null) return target;
   if (typeof target !== "object") return target;

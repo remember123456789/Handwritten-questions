@@ -28,18 +28,20 @@
 
 <body>
     <div class="box"></div>
+    
+
 
     <script>
-        var box = document.querySelector('.box')
-
-        document.addEventListener('click', () => {
-            console.log(456);
-        })
-
-        box.addEventListener('click', (e) => {
-            console.log(123);
-        })
-
+        //    Casading Style SheetSheet
+        function arr(){
+            let result=Array(10)
+            result.forEach((item,index)=>{
+                return index**2
+            })       
+            console.log(result);
+            
+        }
+        arr()
     </script>
 </body>
 
