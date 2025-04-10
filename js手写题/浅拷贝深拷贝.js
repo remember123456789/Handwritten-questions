@@ -1,7 +1,6 @@
 // 简易浅拷贝
 // 1. 参数对象和参数对象的每个数据项的数据类型范围仅在数组、普通对象（{}）、基本数据类型中]
-//2. 无需考虑循环引用问题
-//
+//2.  无需考虑循环引用问题
 //
 function shallowCopy(obj) {
   // 判断是否为对象，如果不是就不进行拷贝
@@ -46,7 +45,7 @@ const _shallowClone = (target) => {
 const obj = {
   name: "A",
   name1: undefined,
-  name3: function () {},
+  name3: function () { },
   name4: Symbol("A"),
 };
 const obj2 = JSON.parse(JSON.stringify(obj));

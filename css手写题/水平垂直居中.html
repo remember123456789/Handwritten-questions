@@ -1,48 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        body {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
+      body { 
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
 
+      .box {
+        
+        /* width: 200px;
+        height: 200px;
+        border: 1px solid salmon;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto; */
+        width: 200px;
+        height: 200px;
+        border: 1px solid salmon;
+        display: flex;
+        flex-direction: row;
+      }
+      .box li{
+        width: 50px;
+        height: 50px;
+        border: 1px solid red;
+        list-style: none;
+        margin: 10px;
+      }
+      @media screen and (max-width: 235px) {
         .box {
-            width: 200px;
-            height: 200px;
-            border: 1px solid salmon;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
+          flex-direction: column;
         }
+        
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <div class="box"></div>
+  <body>
+    <div class="box">
     
-
-
+      <li>12</li>
+      <li>23</li>
+      <li>3</li>
+      <li>4</li>
+      <li>2</li>
+    </div>
     <script>
-        //    Casading Style SheetSheet
-        function arr(){
-            let result=Array(10)
-            result.forEach((item,index)=>{
-                return index**2
-            })       
-            console.log(result);
-            
-        }
-        arr()
+      //Casading Style SheetSheet
+      function arr() {
+        let result = Array(10);
+        result.forEach((item, index) => {
+          return index ** 2;
+        });
+        console.log(result);
+      }
+      arr();
     </script>
-</body>
-
+  </body>
 </html>

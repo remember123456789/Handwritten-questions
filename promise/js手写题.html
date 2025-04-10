@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function debounce(fn, delay) {
+        let timer = null;
+        return (...args) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+          }, delay);
+        };
+      }
+      function throot(fn, delay) {
+        let flag = true;
+        return (...args) => {
+          if (!flag) return;
+          flag = false;
+          setTimeout(() => {
+            fn.apply(this, args);
+            flag = true;
+          }, delay);
+        };
+      }
+      //数组去重 手写扁平化 手写继承 手写深浅拷贝 手写new操作符 手写ajax 手写call apply bind 手写promise
+      //1.手写new操作符
+      function _new(Func, ...args) {
+        let obj = Object.create(Func.prototype);
+        let result = Func.apply(obj, args);
+        return result instanceof Object ? result : obj;
+      }
+      //2.数组去重
+      function unique(arr) {
+        return [...new Set(arr)];
+      }
+      //3.扁平化 [1,2,[3,4,[5,6]]] => [1,2,3,4,5,6]
+      function Flatte(arr) {
+        let newArr = [];
+        arr.forEach((v) => {
+          if (Array.isArray(v)) {
+            newArr = newArr.concat(Flatte(v));
+          } else {
+            newArr.push(v);
+          }
+        });
+        return newArr;
+      }
+      //手写继承
+      //原型链继承 构造函数继承 组合继承 寄生组合式继承
+      //缺点：子类实例会共享所有值
+      function Parent(name) {
+        this.name = name;
+      }
+      function Son(age) {
+        this.age = age;
+      }
+      Son.prototype = new Parent();
+      var parent = new Parent();
+      // 构造函数继承
+      // 子类无法继承父类身上的原型和方法只能继承父类的实例属性和方法，不能继承原型prototype属性和方法
+      function Parent(name) {
+        this.name = name;
+      }
+      Parent.prototype.say = function () {
+        console.log(123);
+      };
+      function Son(age) {
+        Parent.call(this);
+        this.age = age;
+      }
+      // 组合继承
+      // 缺点需要写两遍 new Parent()
+      function Parent(name) {
+        this.name = name;
+      }
+      Son.prototype = new Parent();
+      function Son(age) {
+        Parent.call(this);
+        this.age = age;
+      }
+
+      //寄生组合式继承
+      function Parent(name) {
+        this.name = name;
+      }
+
+      function Son(age) {
+        this.age = age;
+      }
+
+      Son.prototype = Object.create(Parent.prototype);
+
+      Son.prototype.constructor = Son;
+      // 手写深浅拷贝
+      //1.浅拷贝 扩展运算符和
+      let obj = { a: 1 };
+      Object.assign({}, obj);
+      //2.深拷贝实现方式
+      JSON.stringify(JSON.parse(obj));
+      //方法2 循环递归  不考虑循环引用的问题
+      function cloneDeep(obj) {
+        let newObj = obj instanceof Array ? [] : {};
+
+        for (let key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            newObj[key] = cloneDeep(obj[key]);
+          }
+        }
+        return newObj;
+      }
+      // 手写ajax
+      function ajax(url) {
+        return new Promise((resolve, reject) => {
+          let xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+          xhr.send();
+
+          xhr.onload = function () {
+            if (xhr.onreadystatechange === 4) {
+              if (xhr.status === 200) {
+                resolve(xhr.response);
+              } else {
+                reject(xhr.response);
+              }
+            }
+          };
+        });
+      }
+
+      // Object.prototype.toString.call();
+
+      //翻转字符串
+      let str = "hello world";
+
+      str = [...str].reverse().join("");
+
+      console.log(str);
+      //数组求和 使用reduce
+      let arr = [3, 5, 1, 2, 34];
+      let result = arr.reduce((total, value) => {
+        return total + value;
+      });
+      //变量提升 输出
+      var foo = { n: 1 };
+      (function (foo) {
+        console.log(foo.n);
+        foo.n = 3;
+        var foo = { n: 2 };
+        console.log(foo.n);
+      })(foo);
+      console.log(foo.n);
+      //异步图片加载
+      const ImgOnload = () => {
+        let arr = [];
+
+        let promise = arr.map((item) => {
+          return new Promise((resolve, reject) => {
+            let img = new Image();
+            img.src = item;
+            img.onload = () => {
+              resolve(true);
+            };
+          });
+        });
+        Promise.allSettled(promise);
+      };
+
+      //CSS面试题
+      //手写排序算法 快排 数组操作 单例 观察者 工厂模式 发布-订阅模式
+      //冒泡 快排
+      function maopao(arr) {
+        let temp;
+        for (let i = 0; i < arr.length - 1; i++) {
+          for (let j = 0; j < arr.length - i - 1; j++) {
+            temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+          }
+        }
+        return arr;
+      }
+    </script>
+  </body>
+</html>

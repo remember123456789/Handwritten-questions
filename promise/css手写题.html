@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+      }
+
+      .left,
+      .right {
+        width: 200px;
+        height: 200px;
+        background-color: antiquewhite;
+      }
+
+      .center {
+        flex: 1;
+      }
+      .line {
+        width: 10px;
+        height: 1px;
+        transform: scaleY(0.5);
+        background-color: black;
+      }
+
+
+
+
+    </style>
+  </head>
+  <body>
+    <!-- //1.圣杯布局 -->
+
+    <div class="container">
+      <div class="left">1</div>
+      <div class="center">2</div>
+      <div class="right">3</div>
+    </div>
+    <!-- 画一个0，5cm的线 -->
+    <!-- 使用缩放 -->
+    <div class="line"></div>
+  </body>
+</html>

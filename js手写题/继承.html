@@ -1,106 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<body>
+  <body>
     <script>
-        //原型链继承
-        //缺点: 父类构造函数中的引用类型（比如对象/数组），会被所有子类实例共享。
-        // 其中一个子类实例进行修改，会导致所有其他子类实例的这个值都会改变
-        // function Person(name) {
-        //     this.name = name
-        //     this.play = [1, 2, 3, 4]
-        // }
-        // Person.prototype.say = () => {
-        //     console.log('我是Person');
-        // }
-        // function Son(age) {
-        //     this.age = age
-        // }
-        // Son.prototype = new Person()
-        // let son = new Son()
-        // let son1 = new Son()
-        // son.play.push(1)
-        // console.log(son);
-        // console.log(son1);
-        //构造函数继承
-        //所有方法都定义在构造函数中，每次都需要重新创建
-        //（对比原型链继承的方式，方法直接写在原型上，子类创建时不需要重新创建方法）
-        //只能继承父类的实例属性和方法，不能继承原型prototype属性和方法
-        // function Child1() {
-        //     this.name = 'zs',
-        //     this.setName = function () {}
-        // }
+      //原型链继承
+      // 缺点: 父类构造函数中的引用类型（比如对象/数组），会被所有子类实例共享。
+      // 其中一个子类实例进行修改，会导致所有其他子类实例的这个值都会改变
+      // 改变son的属性  son1的属性也会发生变化
+      // function Person(name) {
+      //     this.name = name
+      //     this.play = [1, 2, 3, 4]
+      // }
+      // Person.prototype.say = () => {
+      //     console.log('我是Person');
+      // }
+      // function Son(age) {
+      //     this.age = age
+      // }
+      // Son.prototype = new Person()
+      // let son = new Son()
+      // let son1 = new Son()
+      // son.play.push(1)
+      // console.log(son)
+      // console.log(son1)
+      //构造函数继承
+      // 子类无法继承父类身上的原型和方法只能继承父类的实例属性和方法，不能继承原型prototype属性和方法
+      // 所有方法都定义在构造函数中，每次都需要重新创建
+      //（对比原型链继承的方式，方法直接写在原型上，子类创建时不需要重新创建方法）
+      // function Child1() {
+      //     this.name = 'zs',
+      //     this.setName = function () {}
+      // }
+      // Child1.prototype.say = () => {
+      //     console.log('child1');
+      // }
+      // function Child2() {
+      //     Child1.call(this)
+      // }
+      // let child2 = new Child2()
+      // console.log(child2);
+      //原型链继承
+      // let person = {
+      //     name: 'zs',
+      //     age: 20
+      // }
+      // function Person(name) {
+      //     this.name = name
+      // }
+      // var person = new Person('zs')
+      // let res = Object.getPrototypeOf(person)
+      // const me = Object.create(res)
+      // console.log(me)
+      //组合继承
+      // 缺点：调用了两次父类构造函数，生成了两份实例
+      // function Person(){
+      //     this.name='zs'
+      // }
+      // Person.prototype.say=function(){
+      //     console.log(1223);
+      // }
+      // function Son(){
+      //     Person.call(this)
+      // }
+      // Son.prototype=new Person()
+      // let son=new Son()
+      // console.log(son);
+      //组合继承已经相对完善了，但还是存在问题，它的问题就是调用了 2 次父类构造函数，第一次是在 new Animal()，第二次是在 Animal.call() 这里。
+      // 寄生组合式继承
+      // function Person() {
+      //     this.name = 'zs'
+      // }
+      //
+      // Person.prototype.say = () => {
+      //     console.log('say hi');
+      // }
+      //
+      // function Child() {
+      //     this.age = 20
+      // }
+      //
+      // Child.prototype.heigt = () => {
+      //     console.log('this Child');
+      // }
+      //
+      // Child.prototype = Object.create(Person.prototype)
+      //
+      // //修复子类的指向
+      // Child.prototype.constructor = Child
+      //
+      // let child = new Child()
+      // child.say()
+      // ES6 extends 实现继承
+      //   class Person {
+      //     constructor(name, sex) {
+      //       this.name = name;
+      //       this.sex = sex;
+      //     }
+      //     getName = function () {
+      //       console.log("你好");
+      //     };
+      //   }
 
-        // Child1.prototype.say = () => {
-        //     console.log('child1');
-        // }
-        
-        // function Child2() {
-        //     Child1.call(this)
-        // }
-        // let child2 = new Child2()
-        // console.log(child2);
-        //原型链继承
-        // let person = {
-        //     name: 'zs',
-        //     age: 20
-        // }
-        // function Person(name) {
-        //     this.name = name
-        // }
-        // var person = new Person('zs')
-        // let res = Object.getPrototypeOf(person)
-
-        // const me = Object.create(res)
-        // console.log(me)
-
-        //组合继承
-        // 缺点：调用了两次父类构造函数，生成了两份实例
-        // function Person(){
-        //     this.name='zs'
-        // }
-
-        // Person.prototype.say=function(){
-        //     console.log(1223);
-        // }
-
-        // function Son(){
-        //     Person.call(this)
-        // }
-
-        // Son.prototype=new Person()
-
-        // let son=new Son()
-        // console.log(son);
-        
-        //寄生组合式继承
-        function Person() {
-            this.name = 'zs'
-        }
-
-        Person.prototype.say = () => {
-            console.log('say hi');
-        }
-
-        function Child() {
-            this.age = 20
-        }
-
-        Child.prototype.heigt = () => {
-            console.log('this Child');
-        }
-
-
-        Child.prototype = Object.create(Person.prototype)
-
-        //修复子类的指向
-        Child.prototype.constructor = Child
-
-        let child = new Child()
-        child.say()
-
-
+      //   class Gamer extends Person {
+      //     constructor(name, age, sex) {
+      //       super(name, sex);
+      //       this.age = age;
+      //     }
+      //   }
+      //   let gamer = new Gamer("Gamer", 20, "男");
+      //   console.log(gamer);
+      //   gamer.getName();
     </script>
-</body>
-
+  </body>
 </html>
