@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .grid-container{
+        width: 50%;
+        height: 400px;
+        background-color: blanchedalmond;
+        display: grid;
+        /* auto-fill表示当前容器宽度能容纳多少个元素 */
+        /* 1fr动态分配剩余空间  minmax表示容器最小为100px 最多不超过1fr*/
+        grid-template-columns: repeat(auto-fill,minmax(100px, 1fr));
+        /* 
+          比如说容器的宽度是570px
+          每一列最小为100px 最小宽度就是100px *5=500px
+          剩余570-500=70px
+          70px平均分为5分  70/5=14px
+          最终的每一个的列宽就是100px+14px=114px
+        */
+        /* grid-template-columns: repeat(3,33.3%); */
+        grid-gap: 1%;
+      }
+      .grid-item{
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+    </div>
+  </body>
+</html>
