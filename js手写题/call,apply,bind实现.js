@@ -53,20 +53,19 @@ exampleFunction("Hello", "World");
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
 //call
-Function.prototype.myCall=function(context,...args){
-    if(typeof this!=='function'){
+Function.prototype.myCall = function (context, ...args) {
+    if (typeof this !== 'function') {
         throw new Error('Error')
     }
     //this指向调用的函数say
-    console.log(context)
     //context就是指向的对象 这里是obj2
-    context.fn=this
+    context.fn = this
     //let obj2={
     //     name:'lisi',
     //     age:30,
     //     fn:say()
     // }
-    const result=context.fn(...args)
+    const result = context.fn(...args)
     delete context.fn
     return result
 }
@@ -90,19 +89,19 @@ obj.say.myCall(obj2)
 
 
 //apply
-Function.prototype.myApply=function (context,arr){
-    if(typeof this!=='function'){
+Function.prototype.myApply = function (context, arr) {
+    if (typeof this !== 'function') {
         throw new Error('Error')
     }
-    context.fn=this
+    context.fn = this
     let result
-    if(arr===undefined) {
-        result=context.fn()
-    }else if (typeof arr!=='object' || !Array.isArray(arr)){
+    if (arr === undefined) {
+        result = context.fn()
+    } else if (typeof arr !== 'object' || !Array.isArray(arr)) {
         throw new Error('is not Array')
-    }else {
-        const args=Array.from(arr)
-        result=context.fn(...args)
+    } else {
+        const args = Array.from(arr)
+        result = context.fn(...args)
     }
     delete context.fn
     return result
@@ -131,9 +130,8 @@ obj.say.myApply(obj2,[1,2,3])
 // return ()=>this.call(obj,...args,...rest)
 
 
-Function.prototype.myBind=function (obj,...args){
-    return (...rest)=> {
-        console.log(...rest)
+Function.prototype.myBind = function (obj, ...args) {
+    return (...rest) => {
         this.call(obj, ...args, ...rest)
     }
 }
@@ -152,13 +150,6 @@ Function.prototype.myBind=function (obj,...args){
  * boundGreet("!"); // 输出：Hello, Alice!
  *
  */
-
-
-
-
-
-
-
 
 
 

@@ -41,37 +41,15 @@ function jieliu(fn, delay) {
 }
 
 // // 节流
-// function throttle(fn) {
-//   let flag = false;
-//   return (...args) => {
-//     if (!flag) return;
-
-//     flag = true;
-//     window.requestAnimationFrame(() => {
-//       fn.apply(this, args);
-//       flag = false;
-//     });
-//   };
-// }
-
-function debounce(fn, delay) {
-  let timer = null;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay)
-  }
-}
-
 function throttle(fn, delay) {
-  let flag = false;
+  let flag = true
   return (...args) => {
-    if (!flag) return;
-    flag = true;
+    if (flag === false) return
+    flag = false
     setTimeout(() => {
-      fn.apply(this, args);
-      flag = false;
+      fn.apply(this, args)
+      flag = true
     }, delay)
+
   }
 }
