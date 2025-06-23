@@ -47,9 +47,8 @@ const obj = {
   name1: undefined,
   name3: function () { },
   name4: Symbol("A"),
-};
+}
 const obj2 = JSON.parse(JSON.stringify(obj));
-console.log(obj2); // {name: "A"}
 
 // 深拷贝方式2
 const _completeDeepClone = (target, map = new Map()) => {
@@ -67,4 +66,20 @@ const _completeDeepClone = (target, map = new Map()) => {
     }
   }
   return cloneTarget;
-};
+}
+//深
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

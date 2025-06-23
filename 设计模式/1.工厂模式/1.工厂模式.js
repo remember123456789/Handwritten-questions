@@ -19,10 +19,9 @@ function Factory(name, age, career) {
             work = '设计';
             break;
         case 'manager':
-            work = '管理';  
+            work = '管理';
             break;
     }
-
     return new User(name, age, career, work);
 }
 
