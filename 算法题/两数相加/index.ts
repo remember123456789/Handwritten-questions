@@ -32,5 +32,6 @@ var addTwoNumbers = function (l1, l2, carry = 0) {
   }
 
   // s 除以 10 的余数为当前节点值，商为进位
-//   return new ListNode(s % 10, addTwoNumbers(l1, l2, Math.floor(s / 10)));
+  //   return new ListNode(s % 10, addTwoNumbers(l1, l2, Math.floor(s / 10)));
 };
+JSON.stringify(obj)
