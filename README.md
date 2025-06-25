@@ -19,6 +19,7 @@
 - ajax 封装
 - call、apply、bind 实现
 - 数据去重
+- flatMap
 
 ### Promise
 
