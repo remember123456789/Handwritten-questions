@@ -16,22 +16,35 @@
  */
 // l1 和 l2 为当前遍历的节点，carry 为进位
 var addTwoNumbers = function (l1, l2, carry = 0) {
-  if (l1 === null && l2 === null && carry === 0) {
-    // 递归边界
-    return null;
-  }
+  let head1 = l1;
+  let head2 = l2;
 
-  let s = carry;
-  if (l1) {
-    s += l1.val; // 累加进位与节点值
-    l1 = l1.next;
+  while (head1 != null) {
+    if (head2 != null) {
+      head1.val += head2.val;
+      head2 = head2.next;
+    }
+    //判断l2>l1的情况
+    if (head1.next === null && head2 !== null) {
+      head1.next = head2;
+      break;
+    }
+    head1 = head1.next;
   }
-  if (l2) {
-    s += l2.val;
-    l2 = l2.next;
+  // >=10的情况 后面进位
+  function merge(head) {
+    while (head != null) {
+      //if (head.next == null) return
+      if (head.val >= 10) {
+        head.val = head.val % 10;
+        if (head.next == null) {
+          head.next = new ListNode(0);
+        }
+        head.next.val += 1;
+      }
+      head = head.next;
+    }
   }
-
-  // s 除以 10 的余数为当前节点值，商为进位
-  //   return new ListNode(s % 10, addTwoNumbers(l1, l2, Math.floor(s / 10)));
+  merge(l1);
+  return l1;
 };
-JSON.stringify(obj)
