@@ -1,43 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .grid-container{
-        width: 50%;
-        height: 400px;
-        background-color: blanchedalmond;
-        display: grid;
-        /* auto-fill表示当前容器宽度能容纳多少个元素 */
-        /* 1fr动态分配剩余空间  minmax表示容器最小为100px 最多不超过1fr*/
-        grid-template-columns: repeat(auto-fill,minmax(100px, 1fr));
-        /* 
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .grid-container {
+      width: 50%;
+      height: 400px;
+      background-color: blanchedalmond;
+      display: grid;
+      /* auto-fill表示当前容器宽度能容纳多少个元素 */
+      /* 1fr动态分配剩余空间  minmax表示容器最小为100px 最多不超过1fr*/
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      /* 
           比如说容器的宽度是570px
           每一列最小为100px 最小宽度就是100px *5=500px
           剩余570-500=70px
           70px平均分为5分  70/5=14px
           最终的每一个的列宽就是100px+14px=114px
         */
-        /* grid-template-columns: repeat(3,33.3%); */
-        grid-gap: 1%;
+      /* grid-template-columns: repeat(3,33.3%); */
+      grid-gap: 1%;
+    }
+
+    .grid-item {
+      width: 100px;
+      height: 100px;
+      background-color: aqua;
+    }
+
+    .notification-btn {
+      margin: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .notification-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .notification-btn:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="notification-btn" onclick="requestNotificationPermission()">请求通知权限</button>
+  <button class="notification-btn" onclick="showNotification()">显示通知</button>
+  <button class="notification-btn" onclick="scheduleNotification()">5秒后显示通知</button>
+
+  <script>
+    // 检查浏览器是否支持通知
+    function checkNotificationSupport() {
+      if (!("Notification" in window)) {
+        alert("此浏览器不支持桌面通知");
+        return false;
       }
-      .grid-item{
-        width: 100px;
-        height: 100px;
-        background-color: aqua;
+      return true;
+    }
+
+    // 请求通知权限
+    async function requestNotificationPermission() {
+      if (!checkNotificationSupport()) return;
+
+      try {
+        const permission = await Notification.requestPermission();
+        
+        if (permission === "granted") {
+          alert("通知权限已授予！");
+          document.querySelectorAll('.notification-btn').forEach(btn => {
+            btn.disabled = false;
+          });
+        } else if (permission === "denied") {
+          alert("通知权限被拒绝，请在浏览器设置中手动开启");
+        } else {
+          alert("通知权限请求被取消");
+        }
+      } catch (error) {
+        console.error("请求通知权限时出错:", error);
+        alert("请求通知权限时出错");
       }
-    </style>
-  </head>
-  <body>
-    <div class="grid-container">
-        <div class="grid-item">1</div>
-        <div class="grid-item">2</div>
-        <div class="grid-item">3</div>
-        <div class="grid-item">1</div>
-        <div class="grid-item">2</div>
-        <div class="grid-item">3</div>
-    </div>
-  </body>
+    }
+
+    // 显示通知
+    function showNotification() {
+      if (!checkNotificationSupport()) return;
+
+      if (Notification.permission !== "granted") {
+        alert("请先授予通知权限");
+        return;
+      }
+
+      try {
+        const notification = new Notification("自动学习提醒", {
+          body: "您有新的学习任务需要处理，请及时查看！",
+          icon: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IiMwMDdiZmYiLz4KPHBhdGggZD0iTTEyIDZWN0wxMiAxM0wxNiAxN0wxNSAxOEwxMSAxNEwxMSA3SDZWNkgxMloiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=", // 使用base64编码的图标
+          badge: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IiNmZmYwMDAiLz4KPC9zdmc+Cg==",
+          tag: "study-reminder", // 通知标签，相同标签的通知会替换
+          requireInteraction: true, // 保持通知可见直到用户关闭
+          silent: false, // 开启声音提示
+          vibrate: [200, 100, 200], // 震动模式（毫秒）
+          data: {
+            url: window.location.href,
+            timestamp: new Date().toISOString()
+          }
+        });
+
+        // 通知点击事件
+        notification.onclick = function(event) {
+          console.log("通知被点击");
+          window.focus(); // 将窗口聚焦
+          notification.close(); // 关闭通知
+          
+          // 可以在这里添加跳转到特定页面的逻辑
+          // window.open('https://example.com', '_blank');
+        };
+
+        // 通知显示事件
+        notification.onshow = function(event) {
+          console.log("通知已显示");
+        };
+
+        // 通知关闭事件
+        notification.onclose = function(event) {
+          console.log("通知已关闭");
+        };
+
+        // 通知错误事件
+        notification.onerror = function(event) {
+          console.error("通知显示错误:", event);
+        };
+
+        // 自动关闭通知（可选）
+        setTimeout(() => {
+          notification.close();
+        }, 10000); // 10秒后自动关闭
+
+      } catch (error) {
+        console.error("创建通知时出错:", error);
+        alert("创建通知时出错: " + error.message);
+      }
+    }
+
+    // 延迟显示通知
+    function scheduleNotification() {
+      if (!checkNotificationSupport()) return;
+
+      if (Notification.permission !== "granted") {
+        alert("请先授予通知权限");
+        return;
+      }
+
+      alert("5秒后将显示通知");
+      
+      setTimeout(() => {
+        showNotification();
+      }, 5000);
+    }
+
+    // 页面加载时检查权限状态
+    window.addEventListener('load', function() {
+      if (checkNotificationSupport()) {
+        if (Notification.permission === "granted") {
+          console.log("通知权限已授予");
+          document.querySelectorAll('.notification-btn').forEach(btn => {
+            btn.disabled = false;
+          });
+        } else if (Notification.permission === "denied") {
+          console.log("通知权限被拒绝");
+        } else {
+          console.log("通知权限未确定");
+        }
+      }
+    });
+
+    // 监听权限变化
+    if ("Notification" in window) {
+      Notification.addEventListener('permissionchange', function() {
+        console.log("通知权限状态变化:", Notification.permission);
+      });
+    }
+  </script>
+
+  <div class="grid-container">
+    <div class="grid-item">1</div>
+    <div class="grid-item">2</div>
+    <div class="grid-item">3</div>
+    <div class="grid-item">1</div>
+    <div class="grid-item">2</div>
+    <div class="grid-item">3</div>
+  </div>
+</body>
+
 </html>
