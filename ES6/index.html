@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+    <script>
+
+        let arrayLike = {
+            0: 'a',
+            1: 'b',
+            2: 'c',
+            length: 3
+        };
+
+        let letter = ['a', 'b', 'c'];
+        let entries = letter.entries();
+        console.log(entries.next().value); // [0, 'a']
+        // ["apple", "peach", "straw", "spork"]
+    </script>
+</body>
+
+</html>

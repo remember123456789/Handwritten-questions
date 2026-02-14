@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas - 太阳系</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="500">
+        当前浏览器不支持canvas元素，请升级或更换浏览器！
+    </canvas>
+    <script>
+        //绘制一个小球自由落体
+        // 获取 canvas 元素
+        var canvas = document.getElementById('canvas');
+        // 通过判断getContext方法是否存在来判断浏览器的支持性
+        if (canvas.getContext) {
+            // 获取绘图上下文
+            var ctx = canvas.getContext('2d');
+            var ball = {
+                x: 100,
+                y: 100,
+                vx: 1,
+                vy: 3,
+                radius: 50,
+                draw: function () {
+                    ctx.fillStyle = 'black'
+                    ctx.fillRect(0, 0, canvas.width, canvas.height)
+                    ctx.beginPath()
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+                    ctx.fillStyle = 'blue'
+                    ctx.fill()
+                    ctx.closePath()
+                }
+            }
+            function draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ball.draw();
+                // 添加加速度
+                // ball.vy *= .99;
+                // ball.vy += .25;
+                ball.x += ball.vx;
+                ball.y += ball.vy;
+                //添加边界判断
+                if (ball.y > canvas.height || ball.y < 0) {
+                    ball.vy = -ball.vy;
+                }
+                if (ball.x > canvas.width || ball.x < 0) {
+                    ball.vx = -ball.vx;
+                }
+                window.requestAnimationFrame(draw);
+            }
+            ball.draw()
+            window.requestAnimationFrame(draw);
+        }
+    </script>
+</body>
+
+</html>

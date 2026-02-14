@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+
+<body>
+
+    <canvas id="drawing" width="400" height="200">A drawing of something</canvas>
+    <canvas id="linear" width="300" height="300">123</canvas>
+    <script>
+        const cav = document.querySelector('#drawing');
+        const cav1 = document.querySelector('#linear');
+
+        if (cav.getContext) {
+            const ctx = cav.getContext("2d");
+
+            // ctx.fillRect(0, 0, 200, 200); //填充一个矩形
+            ctx.clearRect(40, 40, 100, 100); //清除指定区域
+            // ctx.strokeRect(70, 70, 50, 50); // 绘制一个边框
+            //渐变 reateLinearGradient(x1,y1,x2,y2);
+            const ctx1 = cav1.getContext("2d");
+            let grad = ctx1.createLinearGradient(0, 0, 300, 300);
+
+            grad.addColorStop(0, 'green');
+            grad.addColorStop(0.5, 'yellow');
+            grad.addColorStop(1, 'blue');
+
+            // 画矩形
+            ctx1.fillStyle = grad; //将渐变加入到矩形中
+            ctx1.fillRect(0, 0, cav1.width, cav1.height);
+            //圆形渐变 createRadialGradient(x1,y1,r1,x2,y2,r2); x1，y1:表示第一个圆的圆心位置，r1:表示第一个圆的半径，圆柱体或圆锥体基准线
+            // let ctx2 = cav.createRadialGradient(10, 10, 50);
+            //绘制直线
+            ctx.moveTo(200, 50);
+            ctx.lineTo(50, 200);
+            ctx.stroke();
+            //绘制三角形
+            // ctx.moveTo(50, 50)
+            // ctx.lineTo(200, 200)
+            // ctx.lineTo(200, 50)
+            // ctx.lineTo(50, 50)
+            // ctx.stroke();
+            //绘制圆弧和圆
+            // arc(x, y, radius, startAngle, endAngle, anticlockwise)。
+            // x和Y为圆心的坐标，radius为半径，startAngle为圆弧或圆的开始位置，
+            // endAngle为圆弧或圆的结束位置，
+            // anticlockwise是绘制的方向（不写默认为false，从顺时针方向）。
+            // 绘制一段圆弧
+            // ctx.arc(60, 60, 50, 0, Math.PI, false);
+            // ctx.fill(); //实心填充
+
+            // ctx.beginPath() // 开启路径
+            // // 绘制一个圆弧
+            // ctx.arc(200, 60, 50, 0, Math.PI * 2, false);
+            // ctx.fill();
+            // ctx.closePath() // 闭合路径
+            //椭圆
+            // ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise)
+            // x、y：椭圆的圆心位置
+            // radiusX、radiusY：x轴和y轴的半径
+            // rotation：椭圆的旋转角度，以弧度表示
+            // startAngle：开始绘制点
+            // endAngle：结束绘制点
+            // anticlockwise：绘制的方向（默认顺时针），可选参数。
+
+            // ctx.beginPath();
+            // ctx.ellipse(150, 100, 50, 100, 10, 0, Math.PI * 2,false);
+            // ctx.stroke();
+            // ctx.closePath();
+            // // 贝塞尔曲线一般用来绘制复杂有规律的图形 quadraticCurveTo(cp1x, cp1y, x, y)，其中cp1x和cp1y为一个控制点，x和y为结束点
+            // quadraticCurveTo()
+            //图案样式
+            
+
+
+
+
+        }
+    </script>
+</body>
+
+</html>
