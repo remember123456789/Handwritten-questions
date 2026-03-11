@@ -17,11 +17,10 @@
       //     this.age = age
       // }
       // Son.prototype = new Person()
-      // let son = new Son()
+      // // let son = new Son()
       // let son1 = new Son()
-      // son.play.push(1)
-      // console.log(son)
-      // console.log(son1)
+      // son1.play.push(1)
+      // console.log(son1.play)
       //构造函数继承
       // 子类无法继承父类身上的原型和方法只能继承父类的实例属性和方法，不能继承原型prototype属性和方法
       // 所有方法都定义在构造函数中，每次都需要重新创建
@@ -38,8 +37,8 @@
       // }
       // let child2 = new Child2()
       // console.log(child2);
-      //原型链继承
-      // let person = {
+      // //原型链继承
+      // // let person = {
       //     name: 'zs',
       //     age: 20
       // }
@@ -50,8 +49,8 @@
       // let res = Object.getPrototypeOf(person)
       // const me = Object.create(res)
       // console.log(me)
-      //组合继承
-      // 缺点：调用了两次父类构造函数，生成了两份实例
+      // //组合继承
+      // // 缺点：调用了两次父类构造函数，生成了两份实例
       // function Person(){
       //     this.name='zs'
       // }
@@ -64,32 +63,34 @@
       // Son.prototype=new Person()
       // let son=new Son()
       // console.log(son);
-      //组合继承已经相对完善了，但还是存在问题，它的问题就是调用了 2 次父类构造函数，第一次是在 new Animal()，第二次是在 Animal.call() 这里。
+      // //组合继承已经相对完善了，但还是存在问题，它的问题就是调用了 2 次父类构造函数，第一次是在 new Animal()，第二次是在 Animal.call() 这里。
       // 寄生组合式继承
-      // function Person() {
-      //     this.name = 'zs'
-      // }
-      //
-      // Person.prototype.say = () => {
-      //     console.log('say hi');
-      // }
-      //
-      // function Child() {
-      //     this.age = 20
-      // }
-      //
-      // Child.prototype.heigt = () => {
-      //     console.log('this Child');
-      // }
-      //
-      // Child.prototype = Object.create(Person.prototype)
-      //
-      // //修复子类的指向
-      // Child.prototype.constructor = Child
-      //
-      // let child = new Child()
-      // child.say()
-      // ES6 extends 实现继承
+      function Person() {
+          this.name = 'zs'
+      }
+      
+      Person.prototype.say = () => {
+          console.log('say hi');
+      }
+      
+      function Child() {
+            Person.call(this)  // ✅ 关键：借用父类构造函数
+
+          this.age = 20
+      }
+      
+      Child.prototype.heigt = () => {
+          console.log('this Child');
+      }
+      
+      Child.prototype = Object.create(Person.prototype)
+      
+      //修复子类的指向
+      Child.prototype.constructor = Child
+      
+      let child = new Child()
+      console.log(child.name);
+      // // ES6 extends 实现继承
       //   class Person {
       //     constructor(name, sex) {
       //       this.name = name;

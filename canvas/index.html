@@ -8,13 +8,12 @@
 </head>
 
 <body>
-
     <canvas id="drawing" width="400" height="200">A drawing of something</canvas>
     <canvas id="linear" width="300" height="300">123</canvas>
     <script>
         const cav = document.querySelector('#drawing');
         const cav1 = document.querySelector('#linear');
-
+            
         if (cav.getContext) {
             const ctx = cav.getContext("2d");
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">点击</button>
+
+    <script>
+      // 手写call 、apply、bind
+      Function.prototype.call = (content, ...args) => {
+        context = content | window;
+        context.fn = this;
+        const result = content.fn(...(args || []));
+        delete content.fn;
+        return result;
+      };
+      //bind
+      Function.prototype.myBind = function (context, ...args1) {
+        const fn = this;
+        return function (...args2) {
+          return fn.apply(context, [...args1, ...args2]);
+        };
+      };
+    </script>
+  </body>
+</html>

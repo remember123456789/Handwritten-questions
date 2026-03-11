@@ -18,7 +18,6 @@ class EventEmitter {
         console.log(this.handlers);
     }
 
-
     //触发事件
     emit(eventName) {
         if (this.handlers[eventName]) {
